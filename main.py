@@ -2,11 +2,12 @@ from __future__ import annotations
 import sublime
 import sublime_plugin
 
-from .windows import WindowRegistry
-from .stack import Position, StackFrame
+from .plugin.windows import WindowRegistry
+from .plugin.stack import Position, StackFrame
 
 
 OUTPUT_PANEL_NAME = "memorize"
+wreg = WindowRegistry()
 
 
 def plugin_loaded() -> None:
@@ -19,9 +20,6 @@ def plugin_loaded() -> None:
 def plugin_unloaded() -> None:
     print("EXITING memorize")
     wreg.close()
-
-
-wreg = WindowRegistry()
 
 
 class MemorizeAddFrameCommand(sublime_plugin.TextCommand):
@@ -48,6 +46,7 @@ class MemorizeShowStackCommand(sublime_plugin.WindowCommand):
     def run(self):
         if (wm := wreg.find_window(self.window)) is not None:
             wm.show_stack()
+
 
 class MemorizeClearStackCommand(sublime_plugin.WindowCommand):
     def run(self):
