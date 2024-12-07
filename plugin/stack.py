@@ -54,7 +54,7 @@ class CallStack:
 
     def add_frame(self, frame: StackFrame) -> int:
         self.frames.append(frame)
-        self.set_frame(self.index + 1)
+        self.set_frame(len(self.frames) - 1)
         return self.index
 
     def clear(self):

@@ -4,6 +4,7 @@ import sublime
 import sublime_plugin
 from functools import partial
 
+from .utils import print_view_info
 from .stack import CallStack, StackFrame
 
 
@@ -13,6 +14,9 @@ class WindowRegistry(sublime_plugin.EventListener):
 
     def on_pre_close_window(self, window: sublime.Window) -> None:
         self.discard(window)
+
+    def on_exit(self) -> None:
+        self.close()
 
     def discard(self, window: sublime.Window) -> None:
         if (wm := self.find_window(window)) is not None:
@@ -121,25 +125,20 @@ class WindowManager:
             view.sel().add(sublime.Region(line))
 
     def show_frame(self, idx: int | None = None) -> None:
-        print('running show frame', idx)
         idx = idx if idx is not None else self.stack.index
         if (frame := self.stack.set_frame(idx)) is not None:
             view = frame.view
-            print('found view', view)
-            if view is None or not view.is_valid():
-                print('opening window', idx)
+            print_view_info(view)
+            if view is None or view.window() is None or not view.is_valid():
                 view = self.window.open_file(frame.path)
                 frame.view = view
             if not view.is_loading():
-                print('start', frame.loc.start)
                 self.focus_view(view, line=frame.loc.start)
             else:
-                print('async start', frame.loc.start)
                 sublime.set_timeout(
                     partial(self.focus_view, view, line=frame.loc.start),
                     delay=10,
                 )
-            print('rendering content')
             self.sm.render_content(self.stack)
 
     def get_stack(self, idx: int | None = None) -> CallStack:
@@ -150,9 +149,12 @@ class WindowManager:
     def clear_stack(self) -> None:
         self.stack.clear()
         self.sm.close()
+        self.save_state()
 
     def add_frame(self, frame: StackFrame) -> int:
-        return self.stack.add_frame(frame)
+        idx = self.stack.add_frame(frame)
+        self.save_state()
+        return idx
 
     def next_frame(self) -> None:
         self.stack.next_frame()
@@ -179,7 +181,7 @@ class HtmlSheetManager:
     def open_sheet(self) -> sublime.Sheet:
         if not self.is_open():
             self.sheet = self.wm.new_sheet(
-                "momorize-stack", "", add_to_sel=True
+                "memorize-stack", "", add_to_sel=True
             )
             self.id = self.sheet.id()
             return self.sheet
