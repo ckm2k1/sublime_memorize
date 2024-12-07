@@ -121,19 +121,25 @@ class WindowManager:
             view.sel().add(sublime.Region(line))
 
     def show_frame(self, idx: int | None = None) -> None:
+        print('running show frame', idx)
         idx = idx if idx is not None else self.stack.index
         if (frame := self.stack.set_frame(idx)) is not None:
             view = frame.view
+            print('found view', view)
             if view is None or not view.is_valid():
+                print('opening window', idx)
                 view = self.window.open_file(frame.path)
                 frame.view = view
             if not view.is_loading():
+                print('start', frame.loc.start)
                 self.focus_view(view, line=frame.loc.start)
             else:
+                print('async start', frame.loc.start)
                 sublime.set_timeout(
                     partial(self.focus_view, view, line=frame.loc.start),
-                    delay=100,
+                    delay=10,
                 )
+            print('rendering content')
             self.sm.render_content(self.stack)
 
     def get_stack(self, idx: int | None = None) -> CallStack:
