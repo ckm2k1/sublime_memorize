@@ -7,5 +7,35 @@
             "user_file": "${packages}/User/Default ($platform).sublime-keymap",
             "default": "[\n\t$0\n]\n",
         }
-    }
+    },
+    {
+        "caption": "Memorize: Add Frame",
+        "command": "memorize_add_frame"
+    },
+    {
+        "caption": "Memorize: Show Stack",
+        "command": "memorize_show_stack"
+    },
+    {
+        "caption": "Memorize: Prev Frame",
+        "command": "memorize_prev_frame"
+    },
+    {
+        "caption": "Memorize: Next Frame",
+        "command": "memorize_next_frame"
+    },
+    {
+        "caption": "Memorize: Hide Stack",
+        "command": "memorize_hide_stack"
+    },
+    {
+        "caption": "Memorize: Clear Stack",
+        "command": "memorize_clear_stack"
+    },
+    // TODO: Needs a quick panel to select the
+    // frame index.
+    // {
+    //     "caption": "Memorize: Jump to frame",
+    //     "command": "memorize_jump_to_frame"
+    // },
 ]
