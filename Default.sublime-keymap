@@ -1,26 +1,26 @@
 [
-    {
-        "keys": ["super+ctrl+h"],
-        "command": "memorize_hide_stack"
-    },
-    {
-        "keys": ["super+ctrl+n"],
-        "command": "memorize_next_frame"
-    },
-    {
-        "keys": ["super+ctrl+k"],
-        "command": "memorize_prev_frame"
-    },
-    {
-        "keys": ["ctrl+alt+m"],
-        "command": "memorize_add_frame"
-    },
-    {
-        "keys": ["ctrl+alt+t"],
-        "command": "memorize_show_stack"
-    },
-    {
-        "keys": ["ctrl+alt+c"],
-        "command": "memorize_clear_stack"
-    }
+    // {
+    //     "keys": ["super+ctrl+h"],
+    //     "command": "memorize_hide_stack"
+    // },
+    // {
+    //     "keys": ["super+ctrl+n"],
+    //     "command": "memorize_next_frame"
+    // },
+    // {
+    //     "keys": ["super+ctrl+k"],
+    //     "command": "memorize_prev_frame"
+    // },
+    // {
+    //     "keys": ["ctrl+alt+m"],
+    //     "command": "memorize_add_frame"
+    // },
+    // {
+    //     "keys": ["ctrl+alt+t"],
+    //     "command": "memorize_show_stack"
+    // },
+    // {
+    //     "keys": ["ctrl+alt+c"],
+    //     "command": "memorize_clear_stack"
+    // }
 ]
