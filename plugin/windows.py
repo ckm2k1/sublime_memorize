@@ -167,6 +167,15 @@ class WindowManager:
     def hide_stack(self) -> None:
         self.sm.close()
 
+    def delete_frame(self, idx: int | None = None) -> None:
+        if self.stack.delete_frame():
+            self.save_state()
+            self.sm.render_content(self.stack)
+        else:
+            sublime.status_message(
+                f"Index `{idx}` does not exist in the stack."
+            )
+
 
 class HtmlSheetManager:
     def __init__(self, wm: WindowManager):

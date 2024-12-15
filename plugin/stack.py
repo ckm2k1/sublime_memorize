@@ -2,6 +2,7 @@ from __future__ import annotations
 from typing import Any, NamedTuple, Tuple
 import sublime
 
+
 class Position(NamedTuple):
     start: int
     end: int
@@ -59,6 +60,7 @@ class CallStack:
 
     def clear(self):
         self.frames = []
+        self._idx = -1
 
     def set_frame(self, idx: int) -> StackFrame | None:
         if not self.frames:
@@ -77,8 +79,30 @@ class CallStack:
     def prev_frame(self) -> StackFrame | None:
         return self.set_frame(self.index - 1)
 
-    def is_cur_frame(self, idx: int) -> bool:
-        return idx == self.index
+    def delete_frame(self, idx: int | None = None) -> bool:
+        if idx is None:
+            if (rem_frame := self.cur_frame) is not None:
+                self.frames.remove(rem_frame)
+                idx = self.index
+            else:
+                # We don't have any frames in the stack, bail.
+                return False
+        elif self._is_valid_index(idx):
+            self.frames.pop(idx)
+        else:
+            # An invalid index was provided.
+            return False
+
+        if not self.frames:
+            self._idx = -1
+        elif not self._is_valid_index(idx):
+            # When deleting frames, if the frame being deleted
+            self._idx = len(self.frames) - 1
+
+        return True
+
+    def _is_valid_index(self, idx: int) -> bool:
+        return idx is not None and 0 <= idx < len(self.frames)
 
     @property
     def index(self) -> int:

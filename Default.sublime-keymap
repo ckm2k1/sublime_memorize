@@ -16,6 +16,10 @@
     //     "command": "memorize_add_frame"
     // },
     // {
+    //     "keys": ["ctrl+alt+d"],
+    //     "command": "memorize_delete_frame"
+    // },
+    // {
     //     "keys": ["ctrl+alt+t"],
     //     "command": "memorize_show_stack"
     // },

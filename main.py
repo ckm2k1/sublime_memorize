@@ -12,13 +12,11 @@ wreg = WindowRegistry()
 
 def plugin_loaded() -> None:
     global wreg
-    print("LOADING memorize")
     for window in sublime.windows():
         wreg.add_window(window)
 
 
 def plugin_unloaded() -> None:
-    print("EXITING memorize")
     wreg.close()
 
 
@@ -78,6 +76,12 @@ class MemorizeHideStackCommand(sublime_plugin.WindowCommand):
     def run(self) -> None:
         if wm := wreg.find_window(self.window.id()):
             wm.hide_stack()
+
+
+class MemorizeDeleteFrameCommand(sublime_plugin.WindowCommand):
+    def run(self, idx: int | None = None) -> None:
+        if wm := wreg.find_window(self.window.id()):
+            wm.delete_frame(idx)
 
 
 def get_sel_code_and_loc(view: sublime.View) -> tuple[str, Position, int]:
