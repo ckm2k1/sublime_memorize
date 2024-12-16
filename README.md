@@ -5,7 +5,7 @@ A Sublime Text plugin to help with keeping track of various file locations and v
 <img width="1920" alt="image" src="https://github.com/user-attachments/assets/6696ebf4-73b7-4fb4-b34e-d820321a3a7c" />
 
 ## Commands
-* Add frame.
+* Add frame
   * Creates a new frame from the current file, cursor location and active selection.
   * If there's an active selection, the frame will include all text in the selection.
   * Automatically shows the current stack. This behaviour can't be disabled yet, but will be doable shortly through settings.
@@ -14,6 +14,8 @@ A Sublime Text plugin to help with keeping track of various file locations and v
   * Loops around when hitting either end of the stack.
   * If the frame refers to a file that is not currently open, it will be opened and cursor placed at the frame location.
 * Jump to previous frame
+* Delete frame
+  * Deletes currently selected frame.
 * Show stack
   * Opens a new stack view tab if it's not currently showing.
   * It will show an empty stack even if there are no frames.
