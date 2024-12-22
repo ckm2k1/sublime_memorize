@@ -14,8 +14,8 @@ A Sublime Text plugin to help with keeping track of various file locations and v
   * Loops around when hitting either end of the stack.
   * If the frame refers to a file that is not currently open, it will be opened and cursor placed at the frame location.
 * Jump to previous frame
-* Delete frame
-  * Deletes currently selected frame.
+* Remove frame
+  * Removes current frame, setting selected to the next frame in line.
 * Show stack
   * Opens a new stack view tab if it's not currently showing.
   * It will show an empty stack even if there are no frames.
